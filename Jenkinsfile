@@ -21,11 +21,6 @@ pipeline {
         sh 'mvn test'
       }
     }
-    stage('cleaning up workspace') {
-      steps {
-        cleanWs(cleanWhenSuccess: true)
-      }
-    }
     stage('Upload to func?') {
       steps {
         echo 'Upload to it func-cp repo'
