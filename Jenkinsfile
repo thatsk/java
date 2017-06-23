@@ -24,7 +24,7 @@ pipeline {
     stage('Upload to func?') {
       steps {
         echo 'Upload to it func-cp repo'
-        input(message: 'Upload it to func', submitter: 'yes', submitterParameter: 'yes')
+        input(message: 'Upload it to func-cp repo', ok: 'yes')
       }
     }
   }
