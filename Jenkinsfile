@@ -11,6 +11,11 @@ pipeline {
         git(url: 'https://github.com/thatsk/java.git', branch: 'master', changelog: true)
       }
     }
+   stage('Compile') {
+      steps {
+        sh 'mvn compile'
+      }
+    }  
     stage('test') {
       steps {
         sh 'mvn test'
@@ -28,22 +33,4 @@ pipeline {
       }
     }
   }
-  post {
-        always {
-            echo 'deleting workspace'
-            deleteDir() /* clean up our workspace */
-        }
-		success {
-            echo 'The build has been succeeded!'
-        }
-        unstable {
-            echo 'The build has been unstable Please check the build logs:/'
-        }
-        failure {
-            echo 'Oops the build has been failed :('
-			mail to: 'team@example.com',
-             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-             body: "Something is wrong with ${env.BUILD_URL}"
-			}
-	}
 }
