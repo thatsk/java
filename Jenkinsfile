@@ -21,6 +21,9 @@ pipeline {
         sh 'mvn test'
       }
     }
+  stage('Archive') {
+    junit allowEmptyResults: true, testResults: '**/target/**/TEST*.xml'
+  }
     stage('Upload to func?') {
       steps {
         echo 'Upload to it func-cp repo'
