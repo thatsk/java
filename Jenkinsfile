@@ -29,10 +29,7 @@ pipeline {
     stage('Uploading Repo') {
       steps {
         echo 'Want tp Upload it func-cp repo'
-        waitUntil() {
-          input(message: 'upload it to func repo', ok: 'click to upload')
-        }
-        
+        input(message: 'Want to deploy to func-cp', ok: 'click to upload')
       }
     }
   }
