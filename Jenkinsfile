@@ -11,11 +11,6 @@ pipeline {
         git(url: 'https://github.com/thatsk/java.git', branch: 'master', changelog: true)
       }
     }
-    stage('Build the project') {
-      steps {
-        withMaven(globalMavenSettingsFilePath: '/home/build/.m2/settings.xml', maven: 'clean install')
-      }
-    }
     stage('test ') {
       steps {
         sh 'mvn test'
