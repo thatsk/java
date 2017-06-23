@@ -29,7 +29,7 @@ pipeline {
     stage('Uploading Repo') {
       steps {
         echo 'Want tp Upload it func-cp repo'
-        input(message: 'Upload it to func-cp repo', ok: 'click to yes', submitter: '123', submitterParameter: '1234')
+        input 'Upload it to func-cp repo'
       }
     }
   }
