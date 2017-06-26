@@ -18,7 +18,7 @@ pipeline {
     }
     stage ('promotion') {
       steps {
-      def userInput =input(id: 'userInput', message: 'Let\'s promote?', parameters: [ [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env']])
+      def userInput =input(id: 'userInput', message: 'Let\'s promote?', parameters: [ [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'environment', name: 'env']])
         echo "Env: " +userInput
       }
     }
