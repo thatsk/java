@@ -4,6 +4,8 @@ pipeline {
       label 'maven'
     }
     
+  def userInput = true
+  def didTimeout = false
   }
   stages {
     stage('checkout') {
@@ -18,8 +20,6 @@ pipeline {
     }
     stage('deployment') {
           
-  def userInput = true
-  def didTimeout = false
 try {
     timeout(time: 15, unit: 'SECONDS') { // change to a convenient timeout for you
         userInput = input(
@@ -46,7 +46,7 @@ node {
         // do something
         echo "this was successful"
     } else {
-        // do something else
+        // do something   else
         echo "this deployment has cancelled"
         currentBuild.result = 'FAILURE'
     } 
