@@ -3,7 +3,7 @@ pipeline {
     node {
       label 'maven'
     }
-    def userInput
+  
   }
   stages {
     stage('checkout') {
@@ -18,11 +18,8 @@ pipeline {
     }
     stage ('promotion') {
       steps {
-      input(
- id: 'userInput', message: 'Let\'s promote?', parameters: [
- [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env']
-])
-echo ("Env: "+userInput)          
+      def userInput =input(id: 'userInput', message: 'Let\'s promote?', parameters: [ [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env']])
+        echo "Env: " +userInput
       }
     }
     
