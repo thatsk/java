@@ -21,23 +21,15 @@ pipeline {
         sh 'mvn test'
       }
     }
-    stage('Archive') {
-      steps {
-        junit(allowEmptyResults: true, testResults: '**/target/**/TEST*.xml')
-      }
-    }
-    stage('Uploading Repo') {
-      steps {
-        echo 'Want tp Upload it func-cp repo'
-        input(message: 'Want to deploy to func-cp', ok: 'click to upload')
-      }
-    }
+    
   }
   post {
     always {
       echo 'deleting workspace'
       deleteDir()
-      
+       archive "target/**/*"
+       junit 'target/surefire-reports/*.xml'
+          
     }
     
     success {
