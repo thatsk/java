@@ -29,7 +29,7 @@ pipeline {
     
     success {
       echo 'The build has been succeeded!'
-      def userInput = true
+  def userInput = true
 def didTimeout = false
 try {
     timeout(time: 15, unit: 'SECONDS') { // change to a convenient timeout for you
@@ -47,6 +47,8 @@ try {
         echo "Aborted by: [${user}]"
     }
 }
+
+node {
     if (didTimeout) {
         // do something on timeout
         echo "no input was received before timeout"
@@ -58,7 +60,7 @@ try {
         echo "this was not successful"
         currentBuild.result = 'FAILURE'
     } 
-}
+} 
     }
     
     unstable {
