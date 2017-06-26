@@ -3,7 +3,7 @@ pipeline {
     node {
       label 'maven'
     }
-    
+    def userInput
   }
   stages {
     stage('checkout') {
