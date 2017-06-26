@@ -23,7 +23,7 @@ pipeline {
       echo 'deleting workspace'
       deleteDir()
        archive "target/**/*"
-       junit 'target/surefire-reports/*.xml'
+    
           
     }
     
