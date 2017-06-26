@@ -16,21 +16,10 @@ pipeline {
         sh 'mvn compile'
       }
     }
-   
-  }
-  post {
-    always {
-      echo 'deleting workspace'
-      deleteDir()
-       archive "target/**/*"
-    
+    stage('deployment') {
           
-    }
-    
-    success {
-      echo 'The build has been succeeded!'
   def userInput = true
-def didTimeout = false
+  def didTimeout = false
 try {
     timeout(time: 15, unit: 'SECONDS') { // change to a convenient timeout for you
         userInput = input(
@@ -49,6 +38,7 @@ try {
 }
 
 node {
+  label 'maven'
     if (didTimeout) {
         // do something on timeout
         echo "no input was received before timeout"
@@ -57,10 +47,25 @@ node {
         echo "this was successful"
     } else {
         // do something else
-        echo "this was not successful"
+        echo "this deployment has cancelled"
         currentBuild.result = 'FAILURE'
     } 
 } 
+
+    }
+    
+  }
+  post {
+    always {
+      echo 'deleting workspace'
+      deleteDir()
+       archive "target/**/*"
+    
+          
+    }
+    
+    success {
+      echo 'The build has been succeeded!'
     }
     
     unstable {
