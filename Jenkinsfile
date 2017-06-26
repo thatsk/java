@@ -4,8 +4,6 @@ pipeline {
       label 'maven'
     }
     
-  def userInput = true
-  def didTimeout = false
   }
   stages {
     stage('checkout') {
@@ -18,39 +16,12 @@ pipeline {
         sh 'mvn compile'
       }
     }
-    stage('deployment') {
-          
-try {
-    timeout(time: 15, unit: 'SECONDS') { // change to a convenient timeout for you
-        userInput = input(
-        id: 'Proceed1', message: 'Was this successful?', parameters: [
-        [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']
-        ])
-    }
-} catch(err) { // timeout reached or input false
-    def user = err.getCauses()[0].getUser()
-    if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
-        didTimeout = true
-    } else {
-        userInput = false
-        echo "Aborted by: [${user}]"
-    }
-}
-
-node {
-  label 'maven'
-    if (didTimeout) {
-        // do something on timeout
-        echo "no input was received before timeout"
-    } else if (userInput == true) {
-        // do something
-        echo "this was successful"
-    } else {
-        // do something   else
-        echo "this deployment has cancelled"
-        currentBuild.result = 'FAILURE'
-    } 
-} 
+    stage ('promotion') {
+def userInput = input(
+ id: 'userInput', message: 'Let\'s promote?', parameters: [
+ [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env']
+])
+echo ("Env: "+userInput)          
 
     }
     
