@@ -6,6 +6,12 @@ pipeline {
   
   }
   stages {
+    stage ('inializing'){
+      steps {
+        echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+      }
+    }
+    
     stage('checkout') {
       steps {
         git(url: 'https://github.com/thatsk/java.git', branch: 'master', changelog: true)
