@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage ('inializing'){
       steps {
-        echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+        echo "Running ${env.BUILD_ID}  ${env.JOB_URL} on ${env.JENKINS_URL}"
       }
     }
     
